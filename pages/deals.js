@@ -75,10 +75,16 @@ export default function DealsPage(){
   const deal = deals.find(d => d.id === activeDealId)
   useEffect(() => {
     if (deal) {
-      if (!prevClosedRef.current && deal.closed) {
+      // Only show congratulations if deal transitions from not closed to closed, and not on initial load
+      if (prevClosedRef.current === false && deal.closed === true) {
         setShowCongrats(true);
       }
-      prevClosedRef.current = deal.closed;
+      // Set ref only after first render
+      if (prevClosedRef.current === undefined) {
+        prevClosedRef.current = deal.closed;
+      } else {
+        prevClosedRef.current = deal.closed;
+      }
     }
   }, [deal?.closed]);
 
