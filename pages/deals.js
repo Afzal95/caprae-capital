@@ -14,6 +14,8 @@ export default function DealsPage(){
   const [role] = useState(user.role || 'buyer')
   const [showCongrats, setShowCongrats] = useState(false);
   const prevClosedRef = useRef(false);
+  const mounted = useRef(false);
+  const [hydrated, setHydrated] = useState(false); // ✅ track hydration
 
   // hydrate from localStorage on mount
   useEffect(()=>{
@@ -60,6 +62,7 @@ export default function DealsPage(){
         dispatch(loadState({ deals: sampleDeals, activeDealId: 'sample1' }))
       }
     }catch(e){ /* ignore */ }
+    setHydrated(true); // ✅ mark hydration complete after localStorage logic
   }, [dispatch])
 
   // persist to localStorage whenever deals change
@@ -68,38 +71,28 @@ export default function DealsPage(){
     try{ localStorage.setItem('caprae_deals_v1', JSON.stringify(toSave)) }catch(e){}
   }, [deals, activeDealId])
 
-  // Show congratulation modal if deal is closed
+  // reset congratulation modal on first mount
   useEffect(()=>{
     setShowCongrats(false);
   },[])
+
   const deal = deals.find(d => d.id === activeDealId)
-  const mounted = useRef(false);
 
-useEffect(() => {
-  if (!mounted.current) {
-    mounted.current = true;
-    return; // skip first run
-  }
-  if (deal && !prevClosedRef.current && deal.closed) {
-    setShowCongrats(true);
-  }
-  prevClosedRef.current = deal?.closed;
-}, [deal?.closed]);
+  // ✅ Correct congratulations modal logic
+  useEffect(() => {
+    if (!hydrated) return; // wait until hydration done
 
-  // useEffect(() => {
-  //   if (deal) {
-  //     // Only show congratulations if deal transitions from not closed to closed, and not on initial load
-  //     if (prevClosedRef.current === false && deal.closed === true) {
-  //       setShowCongrats(true);
-  //     }
-  //     // Set ref only after first render
-  //     if (prevClosedRef.current === undefined) {
-  //       prevClosedRef.current = deal.closed;
-  //     } else {
-  //       prevClosedRef.current = deal.closed;
-  //     }
-  //   }
-  // }, [deal?.closed]);
+    if (!mounted.current) {
+      mounted.current = true;
+      return; // skip first run after hydration
+    }
+
+    if (deal && !prevClosedRef.current && deal.closed) {
+      setShowCongrats(true);
+    }
+
+    prevClosedRef.current = deal?.closed;
+  }, [deal?.closed, hydrated]);
 
   // if no active deal, show message
   if(!activeDealId){
@@ -115,23 +108,22 @@ useEffect(() => {
 
   if(!deal) return (<Layout><div className="card">Deal not found.</div></Layout>)
 
-const onAdvance = () => {
-  if (!deal) return;
+  const onAdvance = () => {
+    if (!deal) return;
 
-  // Only allow advancing from NDA if both parties have signed
-  if (deal.stage === 'NDA') {
-    if (!deal.signed.buyer || !deal.signed.seller) {
-      if (window.confirm('Both parties must sign NDA before advancing. Click OK to sign for both and continue.')) {
-        dispatch(signNDAForBoth(deal.id));
-      } else {
-        return;
+    // Only allow advancing from NDA if both parties have signed
+    if (deal.stage === 'NDA') {
+      if (!deal.signed.buyer || !deal.signed.seller) {
+        if (window.confirm('Both parties must sign NDA before advancing. Click OK to sign for both and continue.')) {
+          dispatch(signNDAForBoth(deal.id));
+        } else {
+          return;
+        }
       }
     }
-  }
 
-  dispatch(advanceStage(deal.id));
-};
-
+    dispatch(advanceStage(deal.id));
+  };
 
   return (
     <Layout>
