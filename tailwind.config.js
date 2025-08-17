@@ -1,0 +1,1 @@
+module.exports = { content: ['./pages/**/*.{js,jsx}','./components/**/*.{js,jsx}'], theme:{extend:{colors:{teal:{DEFAULT:'#0B5351'},mint:{DEFAULT:'#9EE5D7'},coral:{DEFAULT:'#FF8A65'}},boxShadow:{soft:'0 8px 24px rgba(0,0,0,0.08)'},borderRadius:{xl2:'1rem'}}},plugins:[] }

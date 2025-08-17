@@ -1,0 +1,2 @@
+@tailwind base;@tailwind components;@tailwind utilities;
+:root{--bg:#F7FAFA}html,body,#__next{height:100%}body{background:var(--bg);font-family:Inter,ui-sans-serif,system-ui}.btn{@apply px-4 py-2 rounded-xl2 shadow-soft hover:shadow-md transition font-medium}.card{@apply bg-white rounded-xl2 shadow-soft p-4}.tag{@apply inline-block bg-mint/30 text-teal px-2 py-0.5 rounded-full text-xs mr-1}

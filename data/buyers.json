@@ -1,0 +1,26 @@
+[
+  {
+    "id": "b1",
+    "name": "Alex Chen",
+    "type": "Individual",
+    "funds": "$5\u201310M",
+    "industries": [
+      "healthcare",
+      "b2b"
+    ],
+    "location": "ny, usa",
+    "experience": "2 acquisitions"
+  },
+  {
+    "id": "b2",
+    "name": "Nimbus Capital",
+    "type": "Firm",
+    "funds": "$25\u201350M",
+    "industries": [
+      "saas",
+      "fintech"
+    ],
+    "location": "sf, usa",
+    "experience": "5 acquisitions"
+  }
+]

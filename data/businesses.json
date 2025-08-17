@@ -1,0 +1,29 @@
+[
+  {
+    "id": "s1",
+    "name": "HealthPlus Clinics",
+    "industry": "healthcare",
+    "revenue": "8M",
+    "price": "22M",
+    "location": "fl, usa",
+    "summary": "Multi-location urgent care network with 18% EBITDA."
+  },
+  {
+    "id": "s2",
+    "name": "PayLoop",
+    "industry": "fintech",
+    "revenue": "3.2M",
+    "price": "12M",
+    "location": "remote",
+    "summary": "Recurring B2B payments platform, 140% NRR."
+  },
+  {
+    "id": "s3",
+    "name": "FieldWorks B2B",
+    "industry": "b2b",
+    "revenue": "5.1M",
+    "price": "9M",
+    "location": "ny, usa",
+    "summary": "Field services roll-up target with sticky enterprise contracts."
+  }
+]
