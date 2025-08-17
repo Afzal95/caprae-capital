@@ -18,11 +18,15 @@ export default function DealsPage(){
   // hydrate from localStorage on mount
   useEffect(()=>{
     try{
-      const raw = localStorage.getItem('caprae_deals_v1')
+      const raw = typeof window !== 'undefined' ? localStorage.getItem('caprae_deals_v1') : null;
       if(raw){
         const parsed = JSON.parse(raw)
         if(parsed && Array.isArray(parsed.deals) && parsed.deals.length > 0){
           dispatch(loadState(parsed))
+          // If no activeDealId, set to most recent deal
+          if(!parsed.activeDealId && parsed.deals.length > 0){
+            dispatch(setActiveDeal(parsed.deals[parsed.deals.length-1].id))
+          }
         } else {
           // fallback to hardcoded sample deals if localStorage is empty
           const sampleDeals = [{
