@@ -77,6 +77,9 @@ export default function DealsPage(){
   },[])
 
   const deal = deals.find(d => d.id === activeDealId)
+  // Ensure deal pipeline always starts at NDA and follows correct order
+  const pipelineStages = ["NDA", "Due Diligence", "Negotiation", "LOI", "Contract", "Closing"];
+  const currentStageIndex = pipelineStages.indexOf(deal?.stage);
 
   // ✅ Correct congratulations modal logic
   useEffect(() => {
