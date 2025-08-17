@@ -12,6 +12,11 @@
   ],
   "rootMainFiles": [],
   "pages": {
+    "/": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/index.js"
+    ],
     "/_app": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
@@ -27,10 +32,30 @@
       "static/chunks/main.js",
       "static/chunks/pages/dashboard.js"
     ],
+    "/deals": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/deals.js"
+    ],
+    "/login": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/login.js"
+    ],
     "/matches": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/matches.js"
+    ],
+    "/onboarding/buyer": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/onboarding/buyer.js"
+    ],
+    "/role": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/role.js"
     ]
   },
   "ampFirstPages": []
