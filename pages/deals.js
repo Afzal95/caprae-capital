@@ -73,20 +73,33 @@ export default function DealsPage(){
     setShowCongrats(false);
   },[])
   const deal = deals.find(d => d.id === activeDealId)
-  useEffect(() => {
-    if (deal) {
-      // Only show congratulations if deal transitions from not closed to closed, and not on initial load
-      if (prevClosedRef.current === false && deal.closed === true) {
-        setShowCongrats(true);
-      }
-      // Set ref only after first render
-      if (prevClosedRef.current === undefined) {
-        prevClosedRef.current = deal.closed;
-      } else {
-        prevClosedRef.current = deal.closed;
-      }
-    }
-  }, [deal?.closed]);
+  const mounted = useRef(false);
+
+useEffect(() => {
+  if (!mounted.current) {
+    mounted.current = true;
+    return; // skip first run
+  }
+  if (deal && !prevClosedRef.current && deal.closed) {
+    setShowCongrats(true);
+  }
+  prevClosedRef.current = deal?.closed;
+}, [deal?.closed]);
+
+  // useEffect(() => {
+  //   if (deal) {
+  //     // Only show congratulations if deal transitions from not closed to closed, and not on initial load
+  //     if (prevClosedRef.current === false && deal.closed === true) {
+  //       setShowCongrats(true);
+  //     }
+  //     // Set ref only after first render
+  //     if (prevClosedRef.current === undefined) {
+  //       prevClosedRef.current = deal.closed;
+  //     } else {
+  //       prevClosedRef.current = deal.closed;
+  //     }
+  //   }
+  // }, [deal?.closed]);
 
   // if no active deal, show message
   if(!activeDealId){
